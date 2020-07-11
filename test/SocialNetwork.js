@@ -32,8 +32,6 @@ contract('SocialNetwork', ([deployer, author, tipper]) => {
       const result = await socialNetwork.createPost("This is my first post", { from: author })
       const postCount = await socialNetwork.postCount();
       assert.equal(postCount, 1)
-      const event = result.logs[0].args
-      console.log(event)
     })
 
     it('lists posts', async () => {
@@ -41,7 +39,8 @@ contract('SocialNetwork', ([deployer, author, tipper]) => {
     })
 
     it('allow users to tip posts', async () => {
-
+      const postCount = await socialNetwork.postCount();
+      const result = await socialNetwork.tipPost(postCount, { from: tipper, value: web3.utils.toWei('1', 'Ether') })
     })
   })
 })
