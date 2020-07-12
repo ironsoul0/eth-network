@@ -4,6 +4,14 @@ import logo from '../logo.png';
 import './App.css';
 
 class App extends Component {
+
+  constructor(props) {
+    super(props)
+    this.state = {
+      account: ''
+    }
+  }
+
   async componentWillMount() {
     await this.loadWeb3();
     await this.loadBlockchainData()
@@ -23,7 +31,9 @@ class App extends Component {
   async loadBlockchainData() {
     const web3 = window.web3;
     const accounts = await web3.eth.getAccounts()
-    console.log(accounts)
+    this.setState({
+      account: accounts[0]
+    })
   }
 
   render() {
@@ -66,6 +76,7 @@ class App extends Component {
             </main>
           </div>
         </div>
+        <p>Your account goes here {this.state.account}</p>
       </div>
     );
   }
